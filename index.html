@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      window.onload = () => {
+        const loginForm = document.getElementById("loginForm");
+        loginForm.onsubmit = (e) => {
+          e.preventDefault();
+          fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: e.target.id.value,
+              pw: e.target.pw.value,
+            }),
+          })
+            .then((v) => v.json())
+            .then((v) => {
+              if (v.status === "succ") {
+                alert("로그인 성공");
+              }
+            });
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <h1>회원가입</h1>
+    <form action="/register" method="POST">
+      <input type="text" name="id" />
+      <input type="password" name="pw" />
+      <input type="submit" value="가입" />
+    </form>
+    <h1>Only Form</h1>
+    <form action="/login" method="POST">
+      <input type="text" name="id" />
+      <input type="password" name="pw" />
+      <input type="submit" value="로그인" />
+    </form>
+    <h1>다른 방식</h1>
+    <form action="/login" method="POST" id="loginForm">
+      <input type="text" name="id" />
+      <input type="password" name="pw" />
+      <input type="submit" value="로그인" />
+    </form>
+    <h1>영화 검색</h1>
+    <form action="/search">
+        <input type="text" name="name" />
+        <input type="submit" value="검색" />
+    </form>
+  </body>
+</html>
